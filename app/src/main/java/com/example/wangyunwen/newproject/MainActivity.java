@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
         //final EditText password = (EditText) findViewById(R.id.password);
         final TextInputLayout username = (TextInputLayout) findViewById(R.id.username_);
         final TextInputLayout password = (TextInputLayout) findViewById(R.id.password_);
-        username.setErrorEnabled(true);
-        username.setError("用户名不能为空");
 
         final RadioGroup radio_group = (RadioGroup) findViewById(R.id.radio_group);
         Button login = (Button) findViewById(R.id.login);
@@ -86,12 +84,18 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(username.getEditText().toString())) {
-                    Toast.makeText(MainActivity.this, "用户名不能为空",Toast.LENGTH_SHORT).show();
-                } else if(TextUtils.isEmpty(password.getEditText().toString())) {
-                    Toast.makeText(MainActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
-                } else if(TextUtils.equals("Android", username.getEditText().toString()) &&
-                        TextUtils.equals("123456", password.getEditText().toString())) {
+                username.setErrorEnabled(false);
+                password.setErrorEnabled(false);
+                if(TextUtils.isEmpty(username.getEditText().getText().toString())) {
+                    //Toast.makeText(MainActivity.this, "用户名不能为空",Toast.LENGTH_SHORT).show();
+                    username.setErrorEnabled(true);
+                    username.setError("用户名不能为空");
+                } else if(TextUtils.isEmpty(password.getEditText().getText().toString())) {
+                    //Toast.makeText(MainActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+                    password.setErrorEnabled(true);
+                    password.setError("密码不能为空");
+                } else if(TextUtils.equals("Android", username.getEditText().getText().toString()) &&
+                        TextUtils.equals("123456", password.getEditText().getText().toString())) {
                     // show the login successfully message in dialog
                     login_suc.show();
                 } else {
